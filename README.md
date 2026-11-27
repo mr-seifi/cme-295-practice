@@ -6,7 +6,7 @@ An independent practice companion for Stanford's **[CME 295: Transformers & Larg
 - **5 playgrounds**: attention, multi-head attention, decoding, pass@k and masked diffusion
 - **8 NumPy labs** with starter code, built-in tests and reference solutions
 
-**Live site:** https://aminseifi.com/cme295/
+**Live site:** https://mr-seifi.github.io/cme-295-practice/
 
 > Not affiliated with or endorsed by Stanford University or the course staff. Questions follow the topics and running examples of the public course slides; no slide content is redistributed here.
 
