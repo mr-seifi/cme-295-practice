@@ -1,6 +1,6 @@
 # CME 295 Practice
 
-An independent practice companion for Stanford's **CME 295: Transformers & Large Language Models** (Fall 2026), taught by Afshine and Shervine Amidi. The course material is excellent but has little practice, so this site adds:
+An independent practice companion for Stanford's **[CME 295: Transformers & Large Language Models](https://cme295.stanford.edu/)** (Fall 2026), taught by Afshine and Shervine Amidi. The course material is excellent but has little practice, so this site adds:
 
 - **110 questions** across the 8 lectures (calculations graded instantly, concept checks, ordering tasks, open questions with model answers), 99 of them with a figure, step-through or interactive illustration
 - **5 playgrounds**: attention, multi-head attention, decoding, pass@k and masked diffusion
