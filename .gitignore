@@ -1,0 +1,17 @@
+# build output (GitHub Actions rebuilds it)
+site/
+.tmp/
+
+# dependencies and local tooling
+node_modules/
+.venv/
+__pycache__/
+*.pyc
+.e2e/
+
+# course material: not ours to redistribute
+.slides/
+*.pdf
+*.zip
+
+.DS_Store

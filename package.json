@@ -1,0 +1,15 @@
+{
+  "name": "cme295-practice",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Independent practice reader for Stanford CME 295 (Transformers & LLMs): questions with figures, playgrounds and NumPy labs.",
+  "scripts": {
+    "build": "python3 build.py",
+    "test:labs": "for f in labs/lab*.py; do python3 \"$f\" || exit 1; done",
+    "test:e2e": "node tests/verify.js"
+  },
+  "devDependencies": {
+    "katex": "0.16.11",
+    "playwright-core": "1.55.0"
+  }
+}

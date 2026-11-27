@@ -1,0 +1,68 @@
+name: Build, test and deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          python -m pip install --quiet numpy
+
+      - name: Lab reference solutions pass their tests
+        run: for f in labs/lab*.py; do python "$f" || exit 1; done
+
+      - name: Build the site
+        run: |
+          python build.py
+          node --check .tmp/page.js
+
+      - name: Browser tests
+        run: |
+          npx playwright-core install --with-deps chromium-headless-shell
+          (cd site/standalone && python -m http.server 8765 >/dev/null 2>&1 &)
+          sleep 1
+          node tests/verify.js http://127.0.0.1:8765/ | tee .tmp/e2e.log
+          grep -q "failed renders 0 · grading failures none" .tmp/e2e.log
+          grep -q "^errors: none" .tmp/e2e.log
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site/standalone
+
+  deploy:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
